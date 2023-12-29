@@ -7,7 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/Editoutlined";
+import { EditOutlinedIcon } from "@mui/icons-material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,6 @@ import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 import makeRequest from "src/axios";
 import { getLoginUrl, getRegisterUrl } from "src/apiConfig";
-
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),

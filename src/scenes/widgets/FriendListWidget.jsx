@@ -11,7 +11,6 @@ import { getFriendsUrl } from "src/apiConfig";
 const FriendListWidget = ({ userId }) => {
   const dispatch = useDispatch();
   const { friends } = useSelector((state) => state.user);
-  console.log({friends})
   const token = useSelector((state) => state.token);
   const { palette } = useTheme();
 

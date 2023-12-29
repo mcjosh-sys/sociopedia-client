@@ -7,7 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { EditOutlinedIcon } from "@mui/icons-material";
+import { EditOutlined } from "@mui/icons-material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -193,7 +193,7 @@ const Form = () => {
                         ) : (
                           <FlexBetween justifyContent={"space-between"}>
                             <Typography>{values.picture.name}</Typography>
-                            <EditOutlinedIcon />
+                            <EditOutlined/>
                           </FlexBetween>
                         )}
                       </Box>

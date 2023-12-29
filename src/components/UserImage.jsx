@@ -1,7 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { PropTypes } from "prop-types";
+import { getMediaUrl } from "src/apiConfig";
 
 const UserImage = ({ image, name, size = "60px" }) => {
+  const userImageUrl = getMediaUrl(image)
   const initials = () => {
     const nameArr = name.split(" ");
     return `${nameArr[0][0]}${nameArr[1][0]}`;
@@ -20,7 +22,7 @@ const UserImage = ({ image, name, size = "60px" }) => {
     <Box width={size} height={size}>
       {image ? (
         <img
-          src={`http://localhost:3001/assets/${image}`}
+          src={userImageUrl}
           alt="user"
           style={{ objectFit: "cover", borderRadius: "50%" }}
           width={size}

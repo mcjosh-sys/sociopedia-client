@@ -6,16 +6,18 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFriends } from "state";
 import { PropTypes } from "prop-types";
+import { getFriendsUrl } from "src/apiConfig";
 
 const FriendListWidget = ({ userId }) => {
   const dispatch = useDispatch();
   const { friends } = useSelector((state) => state.user);
+  console.log({friends})
   const token = useSelector((state) => state.token);
   const { palette } = useTheme();
 
   const getFriends = () => {
-    makeRequest(token)(`/users/${userId}/friends`).then((res) =>
-      dispatch(setFriends(res.data))
+    makeRequest(token)(getFriendsUrl(userId)).then((res) =>
+      dispatch(setFriends({friends: res.data}))
     );
   };
 
@@ -31,10 +33,10 @@ const FriendListWidget = ({ userId }) => {
         fontWeight={"500"}
         sx={{ md: "1.5rem" }}
       >
-        Frind List
+        Friend List
       </Typography>
       <Box display={"flex"} flexDirection={"column"} gap={"1.5rem"}>
-        {friends.map((friend) => (
+        {friends?.map((friend) => (
           <Friend
             key={friend._id}
             friendId={friend._id}
@@ -49,7 +51,7 @@ const FriendListWidget = ({ userId }) => {
 };
 
 FriendListWidget.propTypes = {
-    userId: PropTypes.string,
-}
+  userId: PropTypes.string,
+};
 
 export default FriendListWidget;

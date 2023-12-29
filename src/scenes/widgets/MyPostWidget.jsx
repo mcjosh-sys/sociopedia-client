@@ -26,6 +26,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import makeRequest from "../../axios";
+import { getPostUrl } from "src/apiConfig";
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const MyPostWidget = ({ picturePath }) => {
     formData.append("description", post);
     if (image) formData.append("picture", image);
     await makeRequest(token)
-      .post("/posts", formData)
+      .post(getPostUrl(), formData)
       .then((res) => dispatch(setPosts(res.data)));
     setImage(null);
     setPost("");

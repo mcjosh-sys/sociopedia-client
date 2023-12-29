@@ -6,7 +6,8 @@ import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import makeRequest from "../axios";
+import makeRequest from "src/axios";
+import { getPatchFriendUrl } from "src/apiConfig";
 
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const isFriend = Boolean(friends?.find((friend) => friend._id === friendId));
   const patchFriend = async () => {
     await makeRequest(token)
-      .patch(`users/${_id}/${friendId}`)
+      .patch(getPatchFriendUrl({userId: _id, friendId}))
       .then((res) => dispatch(setFriends({ friends: res.data })));
   };
 

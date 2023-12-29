@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts, setPost } from "state";
+import { setPosts} from "state";
 import PostWidget from "./PostWidget";
 import { PropTypes } from "prop-types";
-import makeRequest from "../../axios";
+import makeRequest from "src/axios";
+import { getPostUrl, getUserPostsUrl } from "src/apiConfig";
+
 
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
@@ -11,13 +13,13 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const token = useSelector((state) => state.token);
 
   const getPosts = async () => {
-    await makeRequest(token)("/posts").then((res) =>
+    await makeRequest(token)(getPostUrl()).then((res) =>
       dispatch(setPosts({ posts: res.data }))
     );
   };
   const getUserPosts = async () => {
-    await makeRequest(token)(`/posts/${userId}`).then((res) =>
-      dispatch(setPost({ posts: res.data }))
+    await makeRequest(token)(getUserPostsUrl(userId)).then((res) =>
+      dispatch(setPosts({ posts: res.data }))
     );
   };
 
@@ -26,11 +28,9 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     else getPosts();
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!posts) return null;
-
   return (
     <>
-      {posts.map(
+      {posts?.map(
         ({
           _id,
           userId,

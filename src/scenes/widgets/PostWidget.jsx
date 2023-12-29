@@ -12,7 +12,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 import { PropTypes } from "prop-types";
-import makeRequest from "../../axios";
+import makeRequest from "src/axios";
+import { getMediaUrl, getPatchLikeUrl } from "src/apiConfig";
 
 const PostWidget = ({
   postId,
@@ -36,10 +37,12 @@ const PostWidget = ({
   const { palette } = useTheme();
   const primary = palette.primary.main;
   const main = palette.neutral.main;
+  const postImgUl = getMediaUrl(picturePath);
 
   const patchLike = async () => {
+    const url = getPatchLikeUrl(postId);
     await makeRequest(token)
-      .patch(`/posts/${postId}/like`,{userId:loggedInUserId})
+      .patch(url, { userId: loggedInUserId })
       .then((res) => dispatch(setPost({ post: res.data })));
   };
 
@@ -60,7 +63,7 @@ const PostWidget = ({
           height={"auto"}
           alt={`post-${postId}`}
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={postImgUl}
         />
       )}
       <FlexBetween mt={"0.25rem"}>

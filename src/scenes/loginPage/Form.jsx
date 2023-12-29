@@ -16,6 +16,8 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 import makeRequest from "src/axios";
+import { getLoginUrl, getRegisterUrl } from "src/apiConfig";
+
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -62,8 +64,8 @@ const Form = () => {
     const formData = new FormData();
     for (let key in values) formData.append(key, values[key]);
     //formData.append("picturePath", values.picture.name);
-    const savedUser = await makeRequest
-      .post("auth/register", formData)
+    const savedUser = await makeRequest()
+      .post(getRegisterUrl(), formData)
       .then((res) => res.data);
     //console.log({savedUser})
     onSubmitProps.resetForm();
@@ -71,8 +73,8 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedIn = await makeRequest
-      .post("auth/login", JSON.stringify(values), {
+    const loggedIn = await makeRequest()
+      .post(getLoginUrl(), JSON.stringify(values), {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => res.data);

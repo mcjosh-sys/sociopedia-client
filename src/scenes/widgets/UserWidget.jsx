@@ -12,7 +12,8 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import makeRequest from "../../axios";
+import makeRequest from "src/axios";
+import { getUserUrl } from "src/apiConfig";
 
 const UserWidget = ({ userId, picturePath }) => {
   const [user, setUser] = useState(null);
@@ -22,9 +23,11 @@ const UserWidget = ({ userId, picturePath }) => {
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
+  
 
   const getUser = async () => {
-    await makeRequest(token)(`users/${userId}`).then((res) => setUser(res.data));
+    const userUrl = getUserUrl(userId)
+    await makeRequest(token)(userUrl).then((res) => setUser(res.data));
   };
 
   useEffect(() => {

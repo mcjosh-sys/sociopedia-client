@@ -1,6 +1,7 @@
 import { Typography, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
+import { getMediaUrl } from "src/apiConfig";
 
 const AdvertWidget = () => {
   const { palette } = useTheme();
@@ -13,7 +14,7 @@ const AdvertWidget = () => {
       <Typography color={dark}>Sponsord</Typography>
       <Typography color={medium}>Create Ad</Typography>
       <img
-        src="http://localhost:3001/assets/info4.jpeg"
+        src={getMediaUrl("info4.jpeg")}
         alt=""
         width={"100%"}
         height={"auto"}
